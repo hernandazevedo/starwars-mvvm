@@ -1,4 +1,4 @@
-package br.com.devhernand.starwars.core
+package br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.main
 
 import io.reactivex.Single
 

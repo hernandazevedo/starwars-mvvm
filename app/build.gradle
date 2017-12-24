@@ -81,7 +81,6 @@ dependencies {
 
     implementation project(":starwars-domain")
     implementation project(":starwars-data")
-    implementation project(":starwars-core")
 
     implementation baseDependencies.recycler_view
     implementation baseDependencies.kotlin_std_lib

@@ -1,7 +1,6 @@
 package br.com.devhernand.starwars.data
-
-import br.com.devhernand.starwars.core.Product
-import br.com.devhernand.starwars.core.ProductRepository
+import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.main.Product
+import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.main.ProductRepository
 import io.reactivex.Single
 
 /**

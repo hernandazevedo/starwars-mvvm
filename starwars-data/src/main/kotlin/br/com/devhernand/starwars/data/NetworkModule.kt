@@ -1,6 +1,6 @@
 package br.com.devhernand.starwars.data
 
-import br.com.devhernand.starwars.core.Constants
+import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.main.Constants
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

@@ -1,1 +1,1 @@
-include ':app', ':starwars-domain', ':starwars-data', ':starwars-core'
+include ':app', ':starwars-domain', ':starwars-data'

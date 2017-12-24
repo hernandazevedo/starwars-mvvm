@@ -1,4 +1,4 @@
-package br.com.devhernand.starwars.core
+package br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.main
 
 /**
  * Created by Nando on 23/12/2017.

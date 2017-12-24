@@ -43,10 +43,10 @@ android {
             returnDefaultValues = true
         }
     }
-
-    dataBinding {
-        enabled = true
-    }
+//
+//    dataBinding {
+//        enabled = true
+//    }
 
 }
 
@@ -76,8 +76,6 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":starwars-core")
-    implementation project(":starwars-data")
 
     implementation baseDependencies.kotlin_std_lib
 //    implementation baseDependencies.anko
