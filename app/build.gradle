@@ -1,0 +1,149 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+HashMap<String, String> baseDependencies = rootProject.ext.dependencies
+HashMap<String, String> testDependencies = rootProject.ext.testDependencies
+HashMap<String, String> application = rootProject.ext.application
+HashMap<String, String> versions = rootProject.ext.versions
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        applicationId "br.com.devhernand.starwars"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode application.versionCode
+        versionName application.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled = false
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androitTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+}
+
+
+junitJacoco {
+    jacocoVersion = '0.7.9'
+    ignoreProjects = []
+    excludes = ['**/R.class',
+                '**/R$*.class',
+                '**/BuildConfig.*',
+                '**/Manifest*.*',
+                'android/**/*.*',
+                'io/realm/**/*.*',
+                '**/*_MembersInjector.class',
+                '**/Dagger*Component.class',
+                '**/Dagger*Component$Builder.class',
+                '**/*Module_*Factory.class',
+                '**/*_Factory.class']
+    includeNoLocationClasses = true
+}
+
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":starwars-domain")
+    implementation project(":starwars-data")
+    implementation project(":starwars-core")
+
+    implementation baseDependencies.recycler_view
+    implementation baseDependencies.kotlin_std_lib
+    implementation baseDependencies.anko
+    implementation baseDependencies.parceler_api
+    annotationProcessor baseDependencies.parceler
+
+    implementation baseDependencies.dagger2
+    implementation baseDependencies.dagger2_android_support
+
+    kapt baseDependencies.dagger2_compiler
+    kapt baseDependencies.dagger2_android_processor
+
+    kapt baseDependencies.databinding_compiler
+
+    implementation baseDependencies.rx_java
+    implementation baseDependencies.rx_android
+    implementation baseDependencies.rx_network
+
+//    implementation baseDependencies.retrofit2
+//    implementation baseDependencies.retrofit_rx_adapter
+//    implementation baseDependencies.retrofit_converter_gson
+//    implementation baseDependencies.gson
+//    implementation baseDependencies.okhttp3
+//    implementation baseDependencies.logging_interceptor
+
+    implementation baseDependencies.app_compat
+    implementation baseDependencies.card_view
+    implementation baseDependencies.constraint_layout
+    implementation baseDependencies.support_design
+    implementation baseDependencies.support_annotations
+
+    implementation baseDependencies.timber
+    implementation baseDependencies.arch_lifecycle_extensions
+    annotationProcessor baseDependencies.arch_lifecycle_compiler
+
+    //LeakCanary
+    debugImplementation testDependencies.leakcanaryAndroid
+    releaseImplementation testDependencies.leakcanaryNoOp
+    testImplementation testDependencies.leakcanaryNoOp
+
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    testImplementation testDependencies.hamcrest
+    testImplementation testDependencies.roboletric
+    testImplementation(testDependencies.powermock_mockito) {
+        exclude group: 'org.objenesis'
+    }
+    testImplementation(testDependencies.powermock_junit)
+    //Architecture components testing
+    testImplementation testDependencies.core_testing
+
+    testImplementation baseDependencies.dagger2
+    testImplementation(baseDependencies.dagger2_android_support, {
+        exclude group: 'com.android.support'
+    })
+    kaptTest baseDependencies.dagger2_compiler
+    kaptTest baseDependencies.dagger2_android_processor
+
+    androidTestImplementation testDependencies.junit
+    androidTestImplementation(testDependencies.expresso_core, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation testDependencies.mockito
+}
