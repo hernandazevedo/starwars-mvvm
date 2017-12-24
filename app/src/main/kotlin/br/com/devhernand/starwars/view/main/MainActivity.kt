@@ -1,5 +1,6 @@
 package br.com.devhernand.starwars.view.main
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -11,13 +12,19 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import br.com.devhernand.starwars.BR
 import br.com.devhernand.starwars.R
 import br.com.devhernand.starwars.databinding.ActivityMainBinding
+import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Product
+import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
+import kotlinx.android.synthetic.main.content_main.*
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
@@ -58,6 +65,37 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
 
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
+
+        initView()
+        subscribeToLiveData()
+        mViewModel.listProducts()
+    }
+
+    private fun initView() {
+        productListView.layoutManager = LinearLayoutManager(this)
+    }
+
+
+    private fun subscribeToLiveData() {
+        mViewModel.response.observe(this, Observer<MainViewModelResponse> { response ->
+            when(response?.event){
+                MainViewModelEnum.LIST_SUCCESS ->{
+                    setProducts(response.data)
+                }
+                MainViewModelEnum.OPERATION_ERROR ->{
+                    toast(response.throwable?.message.toString())
+                }
+            }
+        })
+    }
+
+    private fun setProducts(data: List<Product>) {
+        if(data.isEmpty()) toast("No transactions found")
+
+        val adapter = ProductRecyclerAdapter(this,data)
+        productListView.adapter = adapter
+        productListView.
+            addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
     override fun onBackPressed() {

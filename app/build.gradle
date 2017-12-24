@@ -100,18 +100,19 @@ dependencies {
     implementation baseDependencies.rx_android
     implementation baseDependencies.rx_network
 
-//    implementation baseDependencies.retrofit2
-//    implementation baseDependencies.retrofit_rx_adapter
-//    implementation baseDependencies.retrofit_converter_gson
-//    implementation baseDependencies.gson
-//    implementation baseDependencies.okhttp3
-//    implementation baseDependencies.logging_interceptor
+    implementation baseDependencies.retrofit2
+    implementation baseDependencies.retrofit_rx_adapter
+    implementation baseDependencies.retrofit_converter_gson
+    implementation baseDependencies.gson
+    implementation baseDependencies.okhttp3
+    implementation baseDependencies.logging_interceptor
 
     implementation baseDependencies.app_compat
     implementation baseDependencies.card_view
     implementation baseDependencies.constraint_layout
     implementation baseDependencies.support_design
     implementation baseDependencies.support_annotations
+    implementation baseDependencies.picasso
 
     implementation baseDependencies.timber
     implementation baseDependencies.arch_lifecycle_extensions

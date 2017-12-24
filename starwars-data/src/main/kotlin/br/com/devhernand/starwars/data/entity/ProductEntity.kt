@@ -1,4 +1,4 @@
-package br.com.devhernand.starwars.data
+package br.com.devhernand.starwars.data.entity
 
 import org.parceler.Generated
 import java.io.Serializable
