@@ -1,6 +1,7 @@
 package br.com.devhernand.starwars.data.repository.datasource
 
 import android.content.Context
+import br.com.devhernand.starwars.data.net.ProductEndpoints
 import br.com.devhernand.starwars.data.net.ProductRestApiImpl
 import javax.inject.Inject
 import javax.inject.Singleton

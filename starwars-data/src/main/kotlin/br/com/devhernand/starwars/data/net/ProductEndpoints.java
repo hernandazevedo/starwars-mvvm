@@ -1,4 +1,4 @@
-package br.com.devhernand.starwars.data.repository.datasource;
+package br.com.devhernand.starwars.data.net;
 
 import java.util.List;
 

@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import br.com.devhernand.starwars.data.exception.NetworkConnectionException
-import br.com.devhernand.starwars.data.repository.datasource.ProductEndpoints
 import br.com.devhernand.starwars.data.entity.ProductEntity
 import io.reactivex.Single
-import javax.inject.Inject
 
 class ProductRestApiImpl
 

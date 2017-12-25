@@ -3,7 +3,7 @@ package br.com.devhernand.starwars.di.app
 import android.app.Application
 import android.content.Context
 import br.com.devhernand.starwars.data.repository.ProductDataRepository
-import br.com.devhernand.starwars.data.repository.datasource.ProductEndpoints
+import br.com.devhernand.starwars.data.net.ProductEndpoints
 import br.com.devhernand.starwars.di.SchedulerProvider
 import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.repository.ProductRepository
 import br.com.devhernand.starwars.utils.AppSchedulerProvider
