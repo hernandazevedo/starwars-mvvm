@@ -21,8 +21,7 @@ class MainModule {
     }
 
     @Provides
-    internal fun mainViewModelProvider(mainViewModel: MainViewModel): ViewModelProvider.Factory {
-        return ViewModelProviderFactory(mainViewModel)
+    internal fun mainViewModelProvider(mainViewModelFactory: ViewModelProviderFactory<MainViewModel>): ViewModelProvider.Factory {
+        return mainViewModelFactory
     }
-
 }
