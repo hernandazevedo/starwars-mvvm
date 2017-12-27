@@ -16,14 +16,8 @@ import dagger.Provides
 class MainModule {
 
     @Provides
-    fun provideMainUseCase(productRepository: ProductRepository): MainUseCase{
-        return MainUseCaseImpl(productRepository)
-    }
-
-
-    @Provides
-    fun provideMainViewModel(schedulerProvider: SchedulerProvider,mainUseCase: MainUseCase): MainViewModel{
-        return MainViewModel(schedulerProvider,mainUseCase)
+    fun provideMainUseCase(mainUseCase: MainUseCaseImpl): MainUseCase{
+        return mainUseCase
     }
 
     @Provides

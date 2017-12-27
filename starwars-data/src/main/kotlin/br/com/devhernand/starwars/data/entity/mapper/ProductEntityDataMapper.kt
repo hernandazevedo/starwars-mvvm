@@ -36,12 +36,7 @@ internal constructor() {
      */
     fun transform(productEntityCollection: List<ProductEntity>): List<Product> {
         val productList :MutableList<Product> = mutableListOf()
-        for (productEntity in productEntityCollection) {
-            val product = transform(productEntity)
-            if (product != null) {
-                productList.add(product)
-            }
-        }
+        productEntityCollection.mapTo(productList) { transform(it) }
         return productList
     }
 }
