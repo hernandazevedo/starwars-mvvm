@@ -22,9 +22,9 @@ import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
 import br.com.devhernand.starwars.view.widget.CircleTransform
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.item_product.*
 import kotlinx.android.synthetic.main.toolbar_top.toolbar as toolbarTop
 import org.jetbrains.anko.toast
 import javax.inject.Inject
