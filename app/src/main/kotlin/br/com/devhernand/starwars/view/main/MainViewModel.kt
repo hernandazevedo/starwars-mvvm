@@ -10,7 +10,7 @@ import org.parceler.Parcel
 /**
  * Created by Nando on 23/12/2017.
  */
-class MainViewModel constructor(val schedulerProvider: SchedulerProvider,val mainUseCase: MainUseCase)
+class MainViewModel constructor(private val schedulerProvider: SchedulerProvider, private val mainUseCase: MainUseCase)
     : BaseViewModel(){
 
     val response: MutableLiveData<MainViewModelResponse> = MutableLiveData()
@@ -25,6 +25,10 @@ class MainViewModel constructor(val schedulerProvider: SchedulerProvider,val mai
                 }, {
                     response.value = MainViewModelResponse(MainViewModelEnum.OPERATION_ERROR,it)
                 }))
+    }
+
+    fun listProductsInChart() : List<Product>{
+        return mainUseCase.listProductsInChart()
     }
 }
 @Parcel

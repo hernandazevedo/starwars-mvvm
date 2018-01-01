@@ -59,6 +59,7 @@ ext {
             parceler_api             : "org.parceler:parceler-api:$parcelerVersion",
             parceler                 : "org.parceler:parceler:$parcelerVersion",
             picasso                  : "com.squareup.picasso:picasso:$picassoVersion",
+            pallete                  : "com.android.support:palette-v7:$supportVersion",
 
             timber                   : "com.jakewharton.timber:timber:$timberVersion",
 

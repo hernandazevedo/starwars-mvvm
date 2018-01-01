@@ -13,4 +13,9 @@
     <string name="finalize_shopping">Finalize Shopping</string>
     <string name="transactions">Transactions</string>
     <string name="check_your_connection">No network. Please check you internet connection.</string>
+    <string name="title_activity_checkout">CheckoutActivity</string>
+    <string name="chart_title">Chart</string>
+    <string name="no_products">No products selected</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="added_to_chart">Added to chart</string>
 </resources>

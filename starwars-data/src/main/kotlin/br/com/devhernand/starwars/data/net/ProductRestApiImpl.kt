@@ -14,17 +14,14 @@ constructor(private val context : Context,private val productEndpoints: ProductE
 
     override fun productEntityList(): Single<List<ProductEntity>> {
 
-        return if (isThereInternetConnection()) {
+        return if (isConnected()) {
             getUserEntitiesFromApi()
         } else {
             Single.error(NetworkConnectionException())
         }
     }
 
-    private fun getUserEntitiesFromApi(): Single<List<ProductEntity>> {
-
-        return productEndpoints.listProducts()
-    }
+    private fun getUserEntitiesFromApi(): Single<List<ProductEntity>> = productEndpoints.listProducts()
 
     /**
      * Checks if the device has any active internet connection.
@@ -32,13 +29,9 @@ constructor(private val context : Context,private val productEndpoints: ProductE
      * @return true device with internet connection, otherwise false.
      */
     @SuppressLint("MissingPermission")
-    private fun isThereInternetConnection(): Boolean {
-        val isConnected: Boolean
-
+    private fun isConnected(): Boolean {
         val connectivityManager = this.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
-        isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting
-
-        return isConnected
+        return networkInfo != null && networkInfo.isConnectedOrConnecting
     }
 }

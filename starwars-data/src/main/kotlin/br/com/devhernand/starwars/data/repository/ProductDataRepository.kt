@@ -22,9 +22,19 @@ class ProductDataRepository
 internal constructor(private val productDataStoreFactory: ProductDataStoreFactory,
                      private val productEntityDataMapper: ProductEntityDataMapper) : ProductRepository {
 
+    val productChart = mutableListOf<Product>()
+
     override fun listProducts(): Single<List<Product>> {
         val userDataStore = this.productDataStoreFactory.createCloudDataStore()
         return userDataStore.productEntityList().map(this.productEntityDataMapper::transform)
+    }
+
+    override fun listProductChart(): List<Product> {
+        return productChart
+    }
+
+    override fun addProductToChart(product: Product) {
+        productChart.add(product)
     }
 
 }

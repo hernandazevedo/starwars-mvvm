@@ -86,6 +86,7 @@ dependencies {
     implementation baseDependencies.kotlin_std_lib
     implementation baseDependencies.anko
     implementation baseDependencies.parceler_api
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor baseDependencies.parceler
 
     implementation baseDependencies.dagger2
@@ -113,6 +114,7 @@ dependencies {
     implementation baseDependencies.support_design
     implementation baseDependencies.support_annotations
     implementation baseDependencies.picasso
+    implementation baseDependencies.pallete
 
     implementation baseDependencies.timber
     implementation baseDependencies.arch_lifecycle_extensions

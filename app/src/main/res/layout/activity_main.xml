@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".view.MainActivity">
+        tools:context=".view.main.MainActivity">
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/content"
@@ -26,13 +26,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <br.com.devhernand.starwars.view.widget.GridRecyclerView
-                android:id="@+id/productListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layoutAnimation="@anim/grid_layout_animation"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
+            <include layout="@layout/content_main" />
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appBarLayout"
@@ -41,8 +35,6 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <include layout="@layout/toolbar_top" />
-
-
 
             </android.support.design.widget.AppBarLayout>
 

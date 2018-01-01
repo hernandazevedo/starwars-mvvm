@@ -8,4 +8,6 @@ import io.reactivex.Single
  */
 interface ProductRepository {
     fun listProducts() : Single<List<Product>>
+    fun listProductChart() : List<Product>
+    fun addProductToChart(product: Product)
 }

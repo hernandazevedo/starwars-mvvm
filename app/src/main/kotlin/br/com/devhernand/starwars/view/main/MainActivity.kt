@@ -1,5 +1,4 @@
 package br.com.devhernand.starwars.view.main
-
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -23,8 +22,10 @@ import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
 import br.com.devhernand.starwars.view.widget.CircleTransform
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar_top.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.toolbar_top.toolbar as toolbarTop
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -62,9 +63,16 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        initRecyclerView()
+        loadProducts()
+        productListView.scheduleLayoutAnimation()
+    }
+
     private fun initFab() {
         fab.setOnClickListener(View.OnClickListener {
-//            CheckoutActivity.navigate(this@MainActivity, CartSingleton.instance.products)
+            this.navigation.navigateToCheckoutActivity(this@MainActivity, mViewModel.listProductsInChart())
         })
     }
 
@@ -74,7 +82,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
 
 
     private fun initToolbar() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbarTop)
         val actionBar = supportActionBar
 
         if (actionBar != null) {
@@ -89,8 +97,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
             drawerLayout.closeDrawers()
 
             when (menuItem.itemId) {
-
-//                R.id.drawer_finalizar_compra -> CheckoutActivity.navigate(this@MainActivity, controller.getProdutos())
+                R.id.drawerFinalizeShopping -> this.navigation.navigateToCheckoutActivity(this@MainActivity, mViewModel.listProductsInChart())
 //                R.id.drawer_historico_transacoes -> {
 //                    val transacts = controller.listTransactions()
 //                    TransactionsActivity.navigate(this@MainActivity, transacts)
@@ -140,7 +147,9 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
     private fun setProducts(data: List<Product>) {
         if(data.isEmpty()) toast("No transactions found")
 
-        val adapter = ProductRecyclerAdapter(this,data)
+        val adapter = ProductRecyclerAdapter(this,data,{
+            this.navigation.navigateToDetailActivity(this, image, it)
+        })
         productListView.adapter = adapter
     }
 
@@ -156,18 +165,12 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
     private fun initRecyclerView() {
 
         var lineElements = 1
-        if (resources.configuration.orientation === Configuration.ORIENTATION_LANDSCAPE)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
             lineElements = 2
 
         productListView.layoutManager = GridLayoutManager(this, lineElements)
     }
 
-    override fun onResume() {
-        super.onResume()
-        initRecyclerView()
-        loadProducts()
-        productListView.scheduleLayoutAnimation()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
