@@ -3,27 +3,28 @@ package br.com.devhernand.starwars.view.main
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.view.View
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
+import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
 import br.com.devhernand.starwars.BR
 import br.com.devhernand.starwars.R
+import br.com.devhernand.starwars.data.exception.NetworkConnectionException
 import br.com.devhernand.starwars.databinding.ActivityMainBinding
+import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Constants
 import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Product
 import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
-import kotlinx.android.synthetic.main.content_main.*
+import br.com.devhernand.starwars.view.widget.CircleTransform
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar_top.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -47,32 +48,75 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        initFab()
+        initToolbar()
+        setupDrawerLayout()
 
-        val fab = findViewById<View>(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        val avatar = navigationView.getHeaderView(0).findViewById<ImageView>(R.id.avatar)
+        Picasso.with(this).load(Constants.AVATAR_URL).transform(CircleTransform()).into(avatar)
+
+        subscribeToLiveData()
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            loadProducts()
         }
 
-        val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
-        toggle.syncState()
+    }
 
-        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
-        navigationView.setNavigationItemSelectedListener(this)
+    private fun initFab() {
+        fab.setOnClickListener(View.OnClickListener {
+//            CheckoutActivity.navigate(this@MainActivity, CartSingleton.instance.products)
+        })
+    }
 
-        initView()
-        subscribeToLiveData()
+    private fun loadProducts() {
         mViewModel.listProducts()
     }
 
-    private fun initView() {
-        productListView.layoutManager = LinearLayoutManager(this)
+
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        val actionBar = supportActionBar
+
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
+    private fun setupDrawerLayout() {
+        navigationView.setNavigationItemSelectedListener({ menuItem ->
+            menuItem.isChecked = true
+            drawerLayout.closeDrawers()
+
+            when (menuItem.itemId) {
+
+//                R.id.drawer_finalizar_compra -> CheckoutActivity.navigate(this@MainActivity, controller.getProdutos())
+//                R.id.drawer_historico_transacoes -> {
+//                    val transacts = controller.listTransactions()
+//                    TransactionsActivity.navigate(this@MainActivity, transacts)
+//                }
+
+                else -> {
+                }
+            }
+
+
+            true
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+                return true
+            }
+            R.id.action_settings -> {
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 
@@ -83,7 +127,11 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
                     setProducts(response.data)
                 }
                 MainViewModelEnum.OPERATION_ERROR ->{
-                    toast(response.throwable?.message.toString())
+                    if(response.throwable is NetworkConnectionException) {
+                        toast(getText(R.string.check_your_connection))
+                    } else {
+                        toast(response.throwable?.message.toString())
+                    }
                 }
             }
         })
@@ -94,17 +142,31 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
 
         val adapter = ProductRecyclerAdapter(this,data)
         productListView.adapter = adapter
-        productListView.
-            addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
     }
 
     override fun onBackPressed() {
-        val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun initRecyclerView() {
+
+        var lineElements = 1
+        if (resources.configuration.orientation === Configuration.ORIENTATION_LANDSCAPE)
+            lineElements = 2
+
+        productListView.layoutManager = GridLayoutManager(this, lineElements)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initRecyclerView()
+        loadProducts()
+        productListView.scheduleLayoutAnimation()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -113,18 +175,6 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-
-        return if (id == R.id.action_settings) {
-            true
-        } else super.onOptionsItemSelected(item)
-
-    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
@@ -144,8 +194,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
 
         }
 
-        val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        drawer.closeDrawer(GravityCompat.START)
+        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 }

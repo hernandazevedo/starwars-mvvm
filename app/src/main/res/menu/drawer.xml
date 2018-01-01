@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drawerFinalizeShopping"
+            android:icon="@mipmap/ic_shop"
+            android:checked="true"
+            android:title="@string/finalize_shopping"/>
+        <item
+            android:id="@+id/drawerTransactionsHistory"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/transactions"/>
+
+    </group>
+</menu>
