@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="br.com.devhernand.starwars.view.checkout.DetailViewModel" />
+            type="br.com.devhernand.starwars.view.checkout.CheckoutViewModel" />
 
     </data>
     <android.support.design.widget.CoordinatorLayout

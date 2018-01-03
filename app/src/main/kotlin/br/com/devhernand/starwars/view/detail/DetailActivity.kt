@@ -64,6 +64,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding,DetailViewModel>() {
     }
 
     private fun initComponents() {
+        super.initToolbar("")
         if(intent.hasExtra(EXTRA_PRODUCT)) {
             product = intent.getSerializableExtra(EXTRA_PRODUCT) as Product
             collapsingToolbarLayout = collapsing_toolbar

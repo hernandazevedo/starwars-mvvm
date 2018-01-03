@@ -73,13 +73,17 @@ abstract class BaseActivity<out T : ViewDataBinding,V : BaseViewModel>  : AppCom
     protected fun initToolbar(title: String?) {
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-
-        if (title != null)
-            toolbar.title = title
-
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { finish() }
+        val actionBar = supportActionBar
+
+        if (title != null) {
+            toolbar.title = title
+            toolbar.setNavigationOnClickListener { finish() }
+        }else{
+            actionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
+        }
+
+        actionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
 

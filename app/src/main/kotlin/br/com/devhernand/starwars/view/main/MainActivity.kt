@@ -76,13 +76,14 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
 
 
     private fun initToolbar() {
-        setSupportActionBar(toolbarTop)
-        val actionBar = supportActionBar
-
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
-            actionBar.setDisplayHomeAsUpEnabled(true)
-        }
+//        setSupportActionBar(toolbarTop)
+//        val actionBar = supportActionBar
+//
+//        if (actionBar != null) {
+//            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
+//            actionBar.setDisplayHomeAsUpEnabled(true)
+//        }
+        super.initToolbar(null)
     }
 
     private fun setupDrawerLayout() {

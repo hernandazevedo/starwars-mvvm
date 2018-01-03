@@ -3,6 +3,7 @@ package br.com.devhernand.starwars.view.checkout
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import br.com.devhernand.starwars.BR
 import br.com.devhernand.starwars.R
@@ -53,6 +54,7 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding, CheckoutViewModel
 
     private fun initView() {
         initToolbar(getText(R.string.chart_title) as String?)
+        recyclerProductCheckout.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
 //        fabFinalizar.setOnClickListener(View.OnClickListener { PaymentActivity.navigate(this@CheckoutActivity, listaProdutos) })
     }
 
