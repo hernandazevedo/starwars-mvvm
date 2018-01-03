@@ -27,6 +27,7 @@ ext {
     timberVersion = '4.5.1'
     vanniktechVersion = "0.11.0"
     picassoVersion = "2.4.0"
+    saripaarVersion = "2.0.2"
 
     dependencies = [
             dagger2                  : "com.google.dagger:dagger:$daggerVersion",
@@ -60,6 +61,8 @@ ext {
             parceler                 : "org.parceler:parceler:$parcelerVersion",
             picasso                  : "com.squareup.picasso:picasso:$picassoVersion",
             pallete                  : "com.android.support:palette-v7:$supportVersion",
+            saripaar                 : "com.mobsandgeeks:android-saripaar:$saripaarVersion",
+            creditcardedittext       : "com.alihafizji.creditcardedittext:library:+@aar",
 
             timber                   : "com.jakewharton.timber:timber:$timberVersion",
 

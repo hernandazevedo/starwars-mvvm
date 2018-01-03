@@ -9,14 +9,14 @@
 
         <variable
             name="viewModel"
-            type="br.com.devhernand.starwars.view.checkout.CheckoutViewModel" />
+            type="br.com.devhernand.starwars.view.payment.PaymentViewModel" />
 
     </data>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".view.checkout.CheckoutActivity">
+        tools:context=".view.payment.PaymentActivity">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -27,7 +27,7 @@
             <include layout="@layout/toolbar_top" />
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_checkout" />
+        <include layout="@layout/content_payment" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabCheckout"

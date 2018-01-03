@@ -2,7 +2,8 @@ package br.com.devhernand.starwars.view.checkout
 
 import android.arch.lifecycle.ViewModelProvider
 import br.com.devhernand.starwars.ViewModelProviderFactory
-import br.com.devhernand.starwars.di.SchedulerProvider
+import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.usecases.CheckoutUseCase
+import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.usecases.CheckoutUseCaseImpl
 import dagger.Module
 import dagger.Provides
 
@@ -13,12 +14,12 @@ import dagger.Provides
 class CheckoutModule {
 
     @Provides
-    fun provideCheckoutViewModel(schedulerProvider: SchedulerProvider): CheckoutViewModel {
-        return CheckoutViewModel(schedulerProvider)
+    fun provideCheckoutUseCase(useCase: CheckoutUseCaseImpl): CheckoutUseCase {
+        return useCase
     }
 
     @Provides
-    internal fun checkoutViewModelProvider(viewModel: CheckoutViewModel): ViewModelProvider.Factory {
-        return ViewModelProviderFactory(viewModel)
+    internal fun checkoutViewModelProvider(factory: ViewModelProviderFactory<CheckoutViewModel>): ViewModelProvider.Factory {
+        return factory
     }
 }

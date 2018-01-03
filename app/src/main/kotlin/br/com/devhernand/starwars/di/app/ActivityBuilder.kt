@@ -5,6 +5,8 @@ import br.com.devhernand.starwars.view.checkout.DetailModule
 import br.com.devhernand.starwars.view.detail.DetailActivity
 import br.com.devhernand.starwars.view.main.MainActivity
 import br.com.devhernand.starwars.view.main.MainModule
+import br.com.devhernand.starwars.view.payment.PaymentActivity
+import br.com.devhernand.starwars.view.payment.PaymentModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -22,4 +24,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [CheckoutModule::class])
     abstract fun bindCheckoutActivity(): CheckoutActivity
+
+    @ContributesAndroidInjector(modules = [PaymentModule::class])
+    abstract fun bindPaymentActivity(): PaymentActivity
 }

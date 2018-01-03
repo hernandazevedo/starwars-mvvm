@@ -4,12 +4,13 @@ import br.com.devhernand.starwars.di.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Provides different types of schedulers.
  */
 class AppSchedulerProvider
-() : SchedulerProvider {
+@Inject constructor() : SchedulerProvider {
     override fun newThread(): Scheduler {
         return Schedulers.newThread()
     }

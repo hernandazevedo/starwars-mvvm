@@ -115,6 +115,8 @@ dependencies {
     implementation baseDependencies.support_annotations
     implementation baseDependencies.picasso
     implementation baseDependencies.pallete
+    implementation baseDependencies.saripaar
+    implementation baseDependencies.creditcardedittext
 
     implementation baseDependencies.timber
     implementation baseDependencies.arch_lifecycle_extensions

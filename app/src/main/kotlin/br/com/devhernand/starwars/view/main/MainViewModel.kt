@@ -6,11 +6,12 @@ import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.P
 import br.com.devhernand.starwars.view.base.BaseViewModel
 import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.usecases.MainUseCase
 import org.parceler.Parcel
+import javax.inject.Inject
 
 /**
  * Created by Nando on 23/12/2017.
  */
-class MainViewModel constructor(private val schedulerProvider: SchedulerProvider, private val mainUseCase: MainUseCase)
+class MainViewModel @Inject constructor(private val schedulerProvider: SchedulerProvider, private val mainUseCase: MainUseCase)
     : BaseViewModel(){
 
     val response: MutableLiveData<MainViewModelResponse> = MutableLiveData()

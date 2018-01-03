@@ -27,7 +27,10 @@
         <activity
             android:name=".view.detail.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".view.payment.PaymentActivity"
+            android:label="@string/title_activity_payment"></activity>
     </application>
 
 </manifest>
