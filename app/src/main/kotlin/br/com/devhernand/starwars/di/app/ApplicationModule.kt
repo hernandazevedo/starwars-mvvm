@@ -29,14 +29,15 @@ class ApplicationModule {
         return userDataRepository
     }
 
+    @Singleton
     @Provides
-    fun provideSchedulerProvider(): SchedulerProvider {
-        return AppSchedulerProvider()
+    fun provideSchedulerProvider(appSchedulerProvider: AppSchedulerProvider): SchedulerProvider {
+        return appSchedulerProvider
     }
 
     @Provides
     @Singleton
-    fun providesProductEndepoints(
+    fun providesProductEndpoints(
             retrofit: Retrofit): ProductEndpoints {
         return retrofit.create(ProductEndpoints::class.java)
     }
