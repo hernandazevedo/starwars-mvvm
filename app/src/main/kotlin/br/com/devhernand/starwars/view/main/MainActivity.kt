@@ -57,18 +57,12 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
         Picasso.with(this).load(Constants.AVATAR_URL).transform(CircleTransform()).into(avatar)
 
         subscribeToLiveData()
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            loadProducts()
-        }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
         initRecyclerView()
         loadProducts()
         productListView.scheduleLayoutAnimation()
     }
+
 
     private fun initFab() {
         fab.setOnClickListener(View.OnClickListener {

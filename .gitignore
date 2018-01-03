@@ -13,3 +13,4 @@
 gradle/
 
 *.pro
+*.bat
