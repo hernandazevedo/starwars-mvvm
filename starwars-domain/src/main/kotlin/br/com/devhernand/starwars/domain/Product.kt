@@ -1,4 +1,4 @@
-package br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain
+package br.com.devhernand.starwars.domain
 
 import java.io.Serializable
 

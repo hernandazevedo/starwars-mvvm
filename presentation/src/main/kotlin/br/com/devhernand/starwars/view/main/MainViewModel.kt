@@ -2,9 +2,9 @@ package br.com.devhernand.starwars.view.main
 
 import android.arch.lifecycle.MutableLiveData
 import br.com.devhernand.starwars.di.SchedulerProvider
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Product
+import br.com.devhernand.starwars.domain.Product
 import br.com.devhernand.starwars.view.base.BaseViewModel
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.usecases.MainUseCase
+import br.com.devhernand.starwars.domain.usecases.MainUseCase
 import org.parceler.Parcel
 import javax.inject.Inject
 

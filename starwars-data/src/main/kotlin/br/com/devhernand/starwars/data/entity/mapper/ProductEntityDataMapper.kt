@@ -1,7 +1,7 @@
 package br.com.devhernand.starwars.data.entity.mapper
 
 import br.com.devhernand.starwars.data.entity.ProductEntity
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Product
+import br.com.devhernand.starwars.domain.Product
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -11,7 +11,6 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
@@ -20,7 +19,7 @@ import android.view.MenuItem
 import br.com.devhernand.starwars.BR
 import br.com.devhernand.starwars.R
 import br.com.devhernand.starwars.databinding.ActivityMainBinding
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Product
+import br.com.devhernand.starwars.domain.Product
 import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
 import kotlinx.android.synthetic.main.content_main.*

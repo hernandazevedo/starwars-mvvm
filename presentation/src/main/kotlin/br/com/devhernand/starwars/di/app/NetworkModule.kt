@@ -1,6 +1,6 @@
 package br.com.devhernand.starwars.di.app
 
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Constants
+import br.com.devhernand.starwars.domain.Constants
 import dagger.Module
 import dagger.Provides
 import java.util.ArrayList

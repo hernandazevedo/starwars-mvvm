@@ -4,12 +4,15 @@ import br.com.devhernand.starwars.di.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Provides different types of schedulers.
  */
+@Singleton
 class AppSchedulerProvider
-() : SchedulerProvider {
+@Inject constructor() : SchedulerProvider {
     override fun newThread(): Scheduler {
         return Schedulers.newThread()
     }
@@ -28,18 +31,5 @@ class AppSchedulerProvider
 
     override fun ui(): Scheduler {
         return AndroidSchedulers.mainThread()
-    }
-
-    companion object {
-
-        private var INSTANCE: AppSchedulerProvider? = null
-
-        val instance: AppSchedulerProvider
-            get() {
-                if (INSTANCE == null) {
-                    INSTANCE = AppSchedulerProvider()
-                }
-                return INSTANCE as AppSchedulerProvider
-            }
     }
 }

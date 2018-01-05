@@ -2,10 +2,8 @@ package br.com.devhernand.starwars.view.main
 
 import android.arch.lifecycle.ViewModelProvider
 import br.com.devhernand.starwars.ViewModelProviderFactory
-import br.com.devhernand.starwars.di.SchedulerProvider
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.usecases.MainUseCase
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.usecases.MainUseCaseImpl
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.repository.ProductRepository
+import br.com.devhernand.starwars.domain.usecases.MainUseCase
+import br.com.devhernand.starwars.domain.usecases.MainUseCaseImpl
 import dagger.Module
 import dagger.Provides
 
@@ -16,7 +14,7 @@ import dagger.Provides
 class MainModule {
 
     @Provides
-    fun provideMainUseCase(mainUseCase: MainUseCaseImpl): MainUseCase{
+    fun provideMainUseCase(mainUseCase: MainUseCaseImpl): MainUseCase {
         return mainUseCase
     }
 

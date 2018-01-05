@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import br.com.devhernand.starwars.R
-import br.com.devhernand.starwars.domain.api.br.com.devhernand.starwars.domain.Product
+import br.com.devhernand.starwars.domain.Product
 import com.squareup.picasso.Picasso
 
 /**
