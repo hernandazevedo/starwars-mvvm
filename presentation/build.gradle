@@ -20,8 +20,6 @@ android {
         versionCode application.versionCode
         versionName application.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-
     }
     buildTypes {
         release {
