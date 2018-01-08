@@ -35,10 +35,6 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
     override fun getViewModel(): MainViewModel = ViewModelProviders.
             of(this, mViewModelFactory).get(MainViewModel::class.java)
 
-    override fun getBindingVariable(): Int {
-        return BR.viewModel
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }

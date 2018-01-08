@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
+import br.com.devhernand.starwars.BR
 import dagger.android.AndroidInjection
 
 /**
@@ -47,7 +48,7 @@ abstract class BaseActivity<T : ViewDataBinding,V : BaseViewModel>  : AppCompatA
      *
      * @return variable id
      */
-    abstract fun getBindingVariable(): Int
+    open fun getBindingVariable(): Int = BR.viewModel
 
 
     /**
