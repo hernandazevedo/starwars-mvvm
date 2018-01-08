@@ -5,9 +5,8 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.view.View
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -16,9 +15,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import br.com.devhernand.starwars.BR
+import android.view.View
 import br.com.devhernand.starwars.R
-import br.com.devhernand.starwars.databinding.ActivityMainBinding
 import br.com.devhernand.starwars.domain.Product
 import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
@@ -27,7 +25,7 @@ import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<MainViewModel>(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var mViewModelFactory: ViewModelProvider.Factory
@@ -35,10 +33,18 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
     override fun getViewModel(): MainViewModel = ViewModelProviders.
             of(this, mViewModelFactory).get(MainViewModel::class.java)
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
+    private fun subscribeToLiveData() {
+        mViewModel.response.observe(this, Observer<MainViewModelResponse> { response ->
+            when(response?.event){
+                MainViewModelEnum.LIST_SUCCESS ->{
+                    setProducts(response.data)
+                }
+                MainViewModelEnum.OPERATION_ERROR ->{
+                    toast(response.throwable?.message.toString())
+                }
+            }
+        })
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,18 +77,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(), Navigati
     }
 
 
-    private fun subscribeToLiveData() {
-        mViewModel.response.observe(this, Observer<MainViewModelResponse> { response ->
-            when(response?.event){
-                MainViewModelEnum.LIST_SUCCESS ->{
-                    setProducts(response.data)
-                }
-                MainViewModelEnum.OPERATION_ERROR ->{
-                    toast(response.throwable?.message.toString())
-                }
-            }
-        })
-    }
+
 
     private fun setProducts(data: List<Product>) {
         if(data.isEmpty()) toast("No transactions found")
