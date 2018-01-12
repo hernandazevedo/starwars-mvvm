@@ -20,6 +20,8 @@ import br.com.devhernand.starwars.R
 import br.com.devhernand.starwars.domain.Product
 import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
+import br.com.devhernand.starwars.view.base.Resource
+import br.com.devhernand.starwars.view.base.Status
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -34,12 +36,12 @@ class MainActivity : BaseActivity<MainViewModel>(), NavigationView.OnNavigationI
             of(this, mViewModelFactory).get(MainViewModel::class.java)
 
     private fun subscribeToLiveData() {
-        mViewModel.response.observe(this, Observer<MainViewModelResponse> { response ->
-            when(response?.event){
-                MainViewModelEnum.LIST_SUCCESS ->{
-                    setProducts(response.data)
+        mViewModel.response.observe(this, Observer<Resource<List<Product>>> { response ->
+            when(response?.status){
+                Status.SUCCESS ->{
+                    response.data?.let { setProducts(it) }
                 }
-                MainViewModelEnum.OPERATION_ERROR ->{
+                Status.ERROR ->{
                     toast(response.throwable?.message.toString())
                 }
             }
