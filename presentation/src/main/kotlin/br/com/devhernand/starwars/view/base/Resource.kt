@@ -30,6 +30,11 @@ val throwable: Throwable?) {
         result = HASHCODE_MULTIPLIER * result + (throwable?.hashCode() ?: ZERO)
         return result
     }
+
+    override fun toString(): String {
+        return "Resource(status=$status, data=$data, throwable=$throwable)"
+    }
+
 }
 
 enum class Status {
