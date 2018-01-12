@@ -5,6 +5,7 @@ import br.com.devhernand.starwars.di.SchedulerProvider
 import br.com.devhernand.starwars.domain.Product
 import br.com.devhernand.starwars.view.base.BaseViewModel
 import br.com.devhernand.starwars.domain.usecases.MainUseCase
+import br.com.devhernand.starwars.view.base.Resource
 import org.parceler.Parcel
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val schedulerProvider: SchedulerProvider, private val mainUseCase: MainUseCase)
     : BaseViewModel(){
 
-    val response: MutableLiveData<MainViewModelResponse> = MutableLiveData()
+    val response: MutableLiveData<Resource<List<Product>>> = MutableLiveData()
 
     //This method could retrieve ProductModel istead of Product directly to fit view requirements
     fun listProducts() {
@@ -22,18 +23,9 @@ class MainViewModel @Inject constructor(private val schedulerProvider: Scheduler
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({
-                    response.value = MainViewModelResponse(MainViewModelEnum.LIST_SUCCESS,it)
+                    response.value = Resource.success(it)
                 }, {
-                    response.value = MainViewModelResponse(MainViewModelEnum.OPERATION_ERROR,it)
+                    response.value = Resource.error(it)
                 }))
     }
-}
-@Parcel
-data class MainViewModelResponse constructor(val event: MainViewModelEnum, val data: List<Product> = emptyList(), val throwable: Throwable? = null) {
-    //Constructor for error
-    constructor(event: MainViewModelEnum, throwable: Throwable? = null) : this(event, emptyList(),throwable)
-}
-enum class MainViewModelEnum {
-    LIST_SUCCESS,
-    OPERATION_ERROR
 }

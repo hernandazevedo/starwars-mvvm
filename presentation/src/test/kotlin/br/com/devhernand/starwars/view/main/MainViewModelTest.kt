@@ -4,6 +4,7 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.MutableLiveData
 import br.com.devhernand.starwars.domain.Product
 import br.com.devhernand.starwars.domain.usecases.MainUseCase
+import br.com.devhernand.starwars.view.base.Resource
 import io.reactivex.Single
 import org.junit.Assert
 import org.junit.Test
@@ -32,11 +33,11 @@ class MainViewModelTest {
 
     @Test
     fun listProducts() {
-        val expectedResult = MutableLiveData<MainViewModelResponse>()
+        val expectedResult = MutableLiveData<Resource<List<Product>>>()
         val product = Product("Product",2000)
         val productList = listOf(product)
 
-        expectedResult.value = MainViewModelResponse(MainViewModelEnum.LIST_SUCCESS,productList)
+        expectedResult.value = Resource.success(productList)
 
         `when`(mainUseCase.listProducts()).thenReturn(Single.just(productList))
 
