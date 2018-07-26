@@ -28,7 +28,7 @@ class MainViewModelTest {
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        mainViewModel = MainViewModel(TestSchedulerProvider(),mainUseCase)
+        mainViewModel = MainViewModel(TestSchedulerProvider(), mainUseCase)
     }
 
     @Test
@@ -43,6 +43,6 @@ class MainViewModelTest {
 
         mainViewModel.listProducts()
 
-        Assert.assertEquals(expectedResult.value,mainViewModel.response.value)
+        Assert.assertEquals(expectedResult.value, mainViewModel.response.value)
     }
 }
