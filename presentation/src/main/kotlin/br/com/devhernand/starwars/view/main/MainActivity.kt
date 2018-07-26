@@ -1,8 +1,6 @@
 package br.com.devhernand.starwars.view.main
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
@@ -18,6 +16,7 @@ import android.view.MenuItem
 import android.view.View
 import br.com.devhernand.starwars.R
 import br.com.devhernand.starwars.domain.Product
+import br.com.devhernand.starwars.getFactoryViewModel
 import br.com.devhernand.starwars.view.adapter.ProductRecyclerAdapter
 import br.com.devhernand.starwars.view.base.BaseActivity
 import br.com.devhernand.starwars.view.base.Resource
@@ -27,16 +26,13 @@ import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity<MainViewModel>(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
-    lateinit var mViewModelFactory: ViewModelProvider.Factory
-
-    override fun getViewModel(): MainViewModel = ViewModelProviders.
-            of(this, mViewModelFactory).get(MainViewModel::class.java)
+    lateinit var mainViewModel: MainViewModel
 
     private fun subscribeToLiveData() {
-        mViewModel.response.observe(this, Observer<Resource<List<Product>>> { response ->
+        mainViewModel.response.observe(this, Observer<Resource<List<Product>>> { response ->
             when(response?.status){
                 Status.SUCCESS ->{
                     response.data?.let { setProducts(it) }
@@ -50,6 +46,7 @@ class MainActivity : BaseActivity<MainViewModel>(), NavigationView.OnNavigationI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainViewModel = getFactoryViewModel { mainViewModel }
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
@@ -71,7 +68,7 @@ class MainActivity : BaseActivity<MainViewModel>(), NavigationView.OnNavigationI
 
         initView()
         subscribeToLiveData()
-        mViewModel.listProducts()
+        mainViewModel.listProducts()
     }
 
     private fun initView() {

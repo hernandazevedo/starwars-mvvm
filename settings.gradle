@@ -1,1 +1,1 @@
-include ':presentation', ':starwars-domain', ':starwars-data'
+include ':presentation', ':domain', ':data'
